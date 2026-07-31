@@ -1,0 +1,564 @@
+/* ======================================================
+   OSINT Search Pro
+   Main Styles v2.0
+====================================================== */
+
+:root{
+
+    --background:#0B1220;
+
+    --surface:#111827;
+
+    --surface-hover:#1E293B;
+
+    --primary:#2563EB;
+
+    --primary-hover:#3B82F6;
+
+    --secondary:#94A3B8;
+
+    --text:#F8FAFC;
+
+    --success:#22C55E;
+
+    --danger:#EF4444;
+
+    --warning:#F59E0B;
+
+    --radius:14px;
+
+    --shadow:0 15px 40px rgba(0,0,0,.35);
+
+}
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:linear-gradient(135deg,#08101d,#0f172a,#101827);
+
+    color:var(--text);
+
+    font-family:'Inter',sans-serif;
+
+    min-height:100vh;
+
+}
+
+/*==========================
+        TOPBAR
+==========================*/
+
+.topbar{
+
+    height:75px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 45px;
+
+    background:rgba(17,24,39,.75);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    font-size:1.4rem;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.logo i{
+
+    color:#38BDF8;
+
+    font-size:1.7rem;
+
+}
+
+nav{
+
+    display:flex;
+
+    gap:25px;
+
+}
+
+nav a{
+
+    color:#CBD5E1;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+nav a:hover{
+
+    color:white;
+
+}
+
+/*==========================
+        MAIN
+==========================*/
+
+main{
+
+    width:95%;
+
+    max-width:1450px;
+
+    margin:auto;
+
+    padding:60px 0;
+
+}
+
+/*==========================
+      GLASS CARD
+==========================*/
+
+.glass{
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+/*==========================
+        BUTTONS
+==========================*/
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:15px 28px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    background:var(--primary-hover);
+
+}
+
+/*==========================
+      SEARCH INPUT
+==========================*/
+
+.search-box{
+
+    width:100%;
+
+    padding:18px 24px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#0f172a;
+
+    color:white;
+
+    font-size:18px;
+
+    outline:none;
+
+}
+
+.search-box::placeholder{
+
+    color:#94A3B8;
+
+}
+
+/*==========================
+        CARDS
+==========================*/
+
+.card{
+
+    background:#111827;
+
+    border-radius:16px;
+
+    padding:28px;
+
+    margin-bottom:25px;
+
+    transition:.35s;
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:#2563EB;
+
+    box-shadow:0 20px 45px rgba(37,99,235,.20);
+
+}
+
+/*==========================
+        FOOTER
+==========================*/
+
+footer{
+
+    margin-top:80px;
+
+    text-align:center;
+
+    color:#94A3B8;
+
+    padding:30px;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+/*==========================
+      RESPONSIVE
+==========================*/
+
+@media(max-width:900px){
+
+.topbar{
+
+    flex-direction:column;
+
+    height:auto;
+
+    padding:20px;
+
+}
+
+nav{
+
+    margin-top:15px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+main{
+
+    width:92%;
+
+}
+
+}
+/*==============================
+ HERO
+==============================*/
+
+.hero{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:40px;
+
+}
+
+.hero-card{
+
+    width:100%;
+
+    max-width:900px;
+
+    padding:60px;
+
+    text-align:center;
+
+}
+
+.hero-logo{
+
+    font-size:70px;
+
+    color:#38BDF8;
+
+    margin-bottom:20px;
+
+}
+
+.hero h1{
+
+    font-size:3rem;
+
+    margin-bottom:10px;
+
+}
+
+.subtitle{
+
+    color:#94A3B8;
+
+    margin-bottom:35px;
+
+    font-size:18px;
+
+}
+
+.search-btn{
+
+    margin-top:30px;
+
+}
+
+.search-engines{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    margin-top:25px;
+
+    flex-wrap:wrap;
+
+}
+
+.search-engines label{
+
+    color:#CBD5E1;
+
+}
+
+.features{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+    margin-top:60px;
+
+}
+
+.features .card{
+
+    text-align:center;
+
+}
+
+.features i{
+
+    color:#38BDF8;
+
+    margin-bottom:20px;
+
+}
+.dashboard{
+
+display:grid;
+
+grid-template-columns:320px 1fr;
+
+gap:35px;
+
+align-items:start;
+
+}
+
+.sidebar{
+
+padding:30px;
+
+position:sticky;
+
+top:95px;
+
+}
+
+.sidebar h2{
+
+margin-bottom:25px;
+
+}
+
+.stat{
+
+margin-bottom:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+}
+
+.results h1{
+
+margin-bottom:35px;
+
+}
+
+.results span{
+
+color:#38BDF8;
+
+}
+
+.result-card{
+
+margin-bottom:30px;
+
+}
+
+.result-header{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+margin-bottom:15px;
+
+}
+
+.result-header i{
+
+font-size:28px;
+
+color:#38BDF8;
+
+}
+
+.result-card p{
+
+margin:18px 0;
+
+line-height:1.7;
+
+}
+
+.result-card a{
+
+color:#38BDF8;
+
+text-decoration:none;
+
+word-break:break-word;
+
+}
+
+.actions{
+
+display:flex;
+
+gap:15px;
+
+margin-top:25px;
+
+}
+
+.copy-btn{
+
+background:#374151;
+
+}
+
+.copy-btn:hover{
+
+background:#4B5563;
+
+}
+
+@media(max-width:1100px){
+
+.dashboard{
+
+grid-template-columns:1fr;
+
+}
+
+.sidebar{
+
+position:relative;
+
+top:0;
+
+}
+
+}

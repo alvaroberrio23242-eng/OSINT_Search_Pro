@@ -1,85 +1,120 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSINT Search Pro</title>
+{% extends "layout.html" %}
 
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            background:#1e1e1e;
-            color:white;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            margin:0;
-        }
+{% block titulo %}OSINT Search Pro{% endblock %}
 
-        .contenedor{
-            width:600px;
-            text-align:center;
-            background:#2d2d2d;
-            padding:40px;
-            border-radius:12px;
-            box-shadow:0 0 20px rgba(0,0,0,.4);
-        }
+{% block contenido %}
 
-        h1{
-            color:#00d4ff;
-            margin-bottom:30px;
-        }
+<section class="hero">
 
-        input{
-            width:80%;
-            padding:12px;
-            border:none;
-            border-radius:6px;
-            font-size:16px;
-        }
+    <div class="glass hero-card">
 
-        button{
-            margin-top:20px;
-            padding:12px 30px;
-            border:none;
-            border-radius:6px;
-            background:#00d4ff;
-            color:white;
-            font-size:16px;
-            cursor:pointer;
-        }
+        <div class="hero-logo">
 
-        button:hover{
-            background:#0099cc;
-        }
-    </style>
+            <i class="fa-solid fa-satellite-dish"></i>
 
-</head>
-<body>
+        </div>
 
-<div class="contenedor">
+        <h1>OSINT Search Pro</h1>
 
-    <h1>🔍 OSINT Search Pro</h1>
+        <p class="subtitle">
 
-    <form action="/buscar" method="POST">
+            Plataforma de Inteligencia de Fuentes Abiertas
 
-        <input
-            type="text"
-            name="consulta"
-            placeholder="Escribe una búsqueda..."
-            required
-        >
+        </p>
 
-        <br>
+        <form action="/buscar" method="POST">
 
-        <button type="submit">
-            Buscar
-        </button>
+            <input
+                type="text"
+                name="consulta"
+                class="search-box"
+                placeholder="Buscar persona, email, dominio, IP o empresa..."
+                required>
 
-    </form>
+            <div class="search-engines">
 
-</div>
+                <label>
 
-</body>
-</html>
+                    <input type="radio" name="motor" value="duckduckgo" checked>
+
+                    🦆 DuckDuckGo
+
+                </label>
+
+                <label>
+
+                    <input type="radio" name="motor" value="bing" disabled>
+
+                    🔍 Bing (Próximamente)
+
+                </label>
+
+                <label>
+
+                    <input type="radio" name="motor" value="google" disabled>
+
+                    🌐 Google Dorks (Próximamente)
+
+                </label>
+
+            </div>
+
+            <button class="btn search-btn">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Buscar
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<section class="features">
+
+    <div class="card">
+
+        <i class="fa-solid fa-user-secret fa-2x"></i>
+
+        <h3>Personas</h3>
+
+        <p>Búsqueda de nombres y perfiles públicos.</p>
+
+    </div>
+
+    <div class="card">
+
+        <i class="fa-solid fa-envelope fa-2x"></i>
+
+        <h3>Emails</h3>
+
+        <p>Preparado para integrar inteligencia sobre correos.</p>
+
+    </div>
+
+    <div class="card">
+
+        <i class="fa-solid fa-globe fa-2x"></i>
+
+        <h3>Dominios</h3>
+
+        <p>WHOIS, DNS y subdominios próximamente.</p>
+
+    </div>
+
+    <div class="card">
+
+        <i class="fa-solid fa-network-wired fa-2x"></i>
+
+        <h3>Direcciones IP</h3>
+
+        <p>Geolocalización e información de red.</p>
+
+    </div>
+
+</section>
+
+{% endblock %}

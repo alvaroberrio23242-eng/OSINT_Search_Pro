@@ -1,99 +1,110 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados - OSINT Search Pro</title>
+{% extends "layout.html" %}
 
-    <style>
-        body{
-            font-family: Arial, Helvetica, sans-serif;
-            background:#1e1e1e;
-            color:white;
-            margin:0;
-            padding:40px;
-        }
+{% block titulo %}Resultados{% endblock %}
 
-        .contenedor{
-            max-width:900px;
-            margin:auto;
-        }
+{% block contenido %}
 
-        h1{
-            color:#00d4ff;
-        }
+<div class="dashboard">
 
-        .resultado{
-            background:#2d2d2d;
-            margin:20px 0;
-            padding:20px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.4);
-        }
+    <aside class="sidebar glass">
 
-        .resultado h2{
-            margin-top:0;
-        }
+        <h2>📊 Estadísticas</h2>
 
-        .resultado a{
-            color:#00d4ff;
-            text-decoration:none;
-            word-break:break-all;
-        }
+        <div class="stat">
 
-        .resultado a:hover{
-            text-decoration:underline;
-        }
+            <span>Consulta</span>
 
-        .volver{
-            display:inline-block;
-            margin-bottom:25px;
-            padding:10px 20px;
-            background:#00d4ff;
-            color:white;
-            text-decoration:none;
-            border-radius:6px;
-        }
-
-        .volver:hover{
-            background:#0099cc;
-        }
-    </style>
-
-</head>
-<body>
-
-<div class="contenedor">
-
-    <a class="volver" href="/">⬅ Nueva búsqueda</a>
-
-    <h1>Resultados para: "{{ consulta }}"</h1>
-
-    {% if resultados %}
-
-        {% for r in resultados %}
-
-        <div class="resultado">
-
-            <h2>{{ r.titulo }}</h2>
-
-            <p>{{ r.descripcion }}</p>
-
-            <a href="{{ r.url }}" target="_blank">
-                {{ r.url }}
-            </a>
+            <strong>{{ consulta }}</strong>
 
         </div>
 
+        <div class="stat">
+
+            <span>Resultados</span>
+
+            <strong>{{ resultados|length }}</strong>
+
+        </div>
+
+        <div class="stat">
+
+            <span>Motor</span>
+
+            <strong>DuckDuckGo</strong>
+
+        </div>
+
+        <hr>
+
+        <a href="/" class="btn">
+
+            Nueva búsqueda
+
+        </a>
+
+    </aside>
+
+    <section class="results">
+
+        <h1>
+
+            Resultados para
+
+            <span>{{ consulta }}</span>
+
+        </h1>
+
+        {% for r in resultados %}
+
+        <article class="card result-card">
+
+            <div class="result-header">
+
+                <i class="fa-solid fa-globe"></i>
+
+                <h2>{{ r.titulo }}</h2>
+
+            </div>
+
+            <p>
+
+                {{ r.descripcion }}
+
+            </p>
+
+            <a href="{{ r.url }}" target="_blank">
+
+                {{ r.url }}
+
+            </a>
+
+            <div class="actions">
+
+                <a
+                    href="{{ r.url }}"
+                    target="_blank"
+                    class="btn">
+
+                    Abrir
+
+                </a>
+
+                <button
+                    class="btn copy-btn"
+                    data-url="{{ r.url }}">
+
+                    Copiar URL
+
+                </button>
+
+            </div>
+
+        </article>
+
         {% endfor %}
 
-    {% else %}
-
-        <p>No se encontraron resultados.</p>
-
-    {% endif %}
+    </section>
 
 </div>
 
-</body>
-</html>
+{% endblock %}
