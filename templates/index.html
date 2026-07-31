@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Search Pro</title>
+
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background:#1e1e1e;
+            color:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin:0;
+        }
+
+        .contenedor{
+            width:600px;
+            text-align:center;
+            background:#2d2d2d;
+            padding:40px;
+            border-radius:12px;
+            box-shadow:0 0 20px rgba(0,0,0,.4);
+        }
+
+        h1{
+            color:#00d4ff;
+            margin-bottom:30px;
+        }
+
+        input{
+            width:80%;
+            padding:12px;
+            border:none;
+            border-radius:6px;
+            font-size:16px;
+        }
+
+        button{
+            margin-top:20px;
+            padding:12px 30px;
+            border:none;
+            border-radius:6px;
+            background:#00d4ff;
+            color:white;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#0099cc;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="contenedor">
+
+    <h1>🔍 OSINT Search Pro</h1>
+
+    <form action="/buscar" method="POST">
+
+        <input
+            type="text"
+            name="consulta"
+            placeholder="Escribe una búsqueda..."
+            required
+        >
+
+        <br>
+
+        <button type="submit">
+            Buscar
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
