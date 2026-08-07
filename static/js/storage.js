@@ -3,7 +3,7 @@
  * Guarda historial de búsquedas/lookups, favoritos y estadísticas de uso reales
  * (no simuladas: se incrementan únicamente cuando ocurre una acción real).
  */
-const OSP = window.OSP || {};
+var OSP = window.OSP || {};
 
 OSP.Storage = (() => {
   const KEYS = {

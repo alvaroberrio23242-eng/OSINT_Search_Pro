@@ -1,4 +1,4 @@
-const OSP = window.OSP || {};
+var OSP = window.OSP || {};
 
 OSP.toast = function (mensaje, tipo = "info") {
   let holder = document.getElementById("osp-toasts");

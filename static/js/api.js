@@ -1,4 +1,4 @@
-const OSP = window.OSP || {};
+var OSP = window.OSP || {};
 
 OSP.Api = (() => {
   async function post(path, body) {
