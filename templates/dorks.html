@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Google Dorks — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Módulo · Dork Generator</div>{% endblock %}
+
+{% block content %}
+<div class="panel bracketed fade-in" style="margin-bottom:20px;">
+  <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Generar Google Dorks</h3></div>
+  <form id="dorks-form" class="input-row">
+    <input id="dorks-input" class="input" type="text" placeholder="ej: empresa.com" autocomplete="off" required>
+    <button type="submit" class="btn primary">Generar</button>
+  </form>
+</div>
+
+<div id="dorks-results"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/dorks.js') }}"></script>
+{% endblock %}

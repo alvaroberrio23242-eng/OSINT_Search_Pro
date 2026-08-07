@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Direcciones IP — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Módulo · IP Intelligence</div>{% endblock %}
+
+{% block content %}
+<div class="panel bracketed fade-in" style="margin-bottom:20px;">
+  <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Analizar dirección IP</h3></div>
+  <form id="ip-form" class="input-row">
+    <input id="ip-input" class="input" type="text" placeholder="ej: 8.8.8.8" autocomplete="off" required>
+    <label class="chip" style="flex:none;">
+      <input id="ip-scan-toggle" type="checkbox" checked><span class="dot"></span>Escanear puertos comunes
+    </label>
+    <button type="submit" class="btn primary">Analizar</button>
+  </form>
+  <p class="text-dim" style="margin-top:10px;font-size:12.5px;">El escaneo de puertos es un chequeo diagnóstico ligero (12 puertos comunes, timeout corto). Úsalo solo sobre IPs de tu propiedad o con autorización.</p>
+</div>
+
+<div id="ip-results"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/ips.js') }}"></script>
+{% endblock %}

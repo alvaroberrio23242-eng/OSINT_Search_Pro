@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Historial — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Historial · Favoritos · Estadísticas</div>{% endblock %}
+
+{% block content %}
+<div class="grid cols-4 stagger" id="stats-grid" style="margin-bottom:22px;"></div>
+
+<div class="panel bracketed fade-in" data-tabs="#hist-scope">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab-target="historial">Historial</button>
+    <button class="tab-btn" data-tab-target="favoritos">Favoritos</button>
+  </div>
+  <div id="hist-scope">
+    <div data-tab-panel="historial">
+      <div class="input-row" style="margin-bottom:14px;">
+        <input id="hist-filter" class="input" placeholder="Filtrar por consulta o tipo…">
+        <button class="btn" id="hist-clear">Vaciar historial</button>
+      </div>
+      <div id="hist-list"></div>
+    </div>
+    <div data-tab-panel="favoritos" hidden>
+      <div id="fav-list"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/historial.js') }}"></script>
+{% endblock %}

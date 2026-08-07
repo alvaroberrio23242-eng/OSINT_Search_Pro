@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Configuración — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Configuración</div>{% endblock %}
+
+{% block content %}
+<div class="grid cols-2 stagger">
+  <div class="panel bracketed">
+    <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Integraciones opcionales</h3></div>
+    <p class="text-dim" style="margin-bottom:14px;">Estas fuentes requieren una clave de API propia. Sin ellas, la plataforma sigue funcionando por completo con fuentes gratuitas.</p>
+    <table class="data">
+      <thead><tr><th>Servicio</th><th>Estado</th></tr></thead>
+      <tbody>
+        {% for nombre, activo in servicios.items() %}
+        <tr>
+          <td style="text-transform:capitalize;">{{ nombre }}</td>
+          <td>{% if activo %}<span class="badge ok"><span class="dot"></span>Configurado</span>{% else %}<span class="badge warn"><span class="dot"></span>Sin clave</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="text-dim" style="margin-top:14px;font-size:12.5px;">Añade las claves como variables de entorno (<code>HUNTER_API_KEY</code>, <code>SHODAN_API_KEY</code>, <code>VIRUSTOTAL_API_KEY</code>, <code>HIBP_API_KEY</code>, <code>CENSYS_API_ID</code>/<code>CENSYS_API_SECRET</code>, <code>SECURITYTRAILS_API_KEY</code>) y reinicia el servidor.</p>
+  </div>
+
+  <div class="panel bracketed">
+    <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Datos locales</h3></div>
+    <p class="text-dim">El historial, los favoritos y las estadísticas se guardan únicamente en tu navegador (localStorage). No se envían a ningún servidor.</p>
+    <button class="btn" id="wipe-local" style="margin-top:10px;">Borrar todos los datos locales</button>
+  </div>
+
+  <div class="panel bracketed" style="grid-column:1/-1;">
+    <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Acerca de</h3></div>
+    <p>OSINT Search Pro es una plataforma de inteligencia de fuentes abiertas construida con Flask. Agrega motores de búsqueda públicos y realiza consultas técnicas (WHOIS, DNS, geolocalización, verificación de perfiles) sobre datos ya públicos.</p>
+    <p class="text-dim" style="font-size:12.5px;">Uso responsable: esta herramienta consulta exclusivamente información pública. El escaneo de puertos y las consultas de red deben usarse solo sobre activos propios o con autorización expresa.</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById("wipe-local").addEventListener("click", () => {
+  if (confirm("Esto borrará historial, favoritos y estadísticas guardados en este navegador. ¿Continuar?")) {
+    localStorage.removeItem("osp_history");
+    localStorage.removeItem("osp_favorites");
+    localStorage.removeItem("osp_stats");
+    OSP.toast("Datos locales eliminados", "ok");
+  }
+});
+</script>
+{% endblock %}

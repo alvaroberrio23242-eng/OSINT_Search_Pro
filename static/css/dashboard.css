@@ -1,0 +1,148 @@
+/* ===================== Hero / dashboard ===================== */
+.hero {
+  position: relative;
+  padding: 64px 32px 56px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: radial-gradient(circle at 50% -10%, rgba(255,176,0,0.08), transparent 55%), var(--panel);
+  overflow: hidden;
+  text-align: center;
+}
+
+.radar {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background:
+    repeating-radial-gradient(circle, transparent 0 24px, rgba(255,176,0,0.06) 25px 26px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.radar::before, .radar::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+}
+.radar::before { inset: 18px; }
+.radar::after { inset: 36px; }
+.radar .sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(255,176,0,0.55), transparent 55deg);
+  animation: sweep 3.2s linear infinite;
+  mix-blend-mode: screen;
+}
+.radar .core {
+  position: relative;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 18px 4px rgba(255,176,0,.6);
+  z-index: 2;
+}
+.radar .blip {
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: blip 3.2s linear infinite;
+  opacity: 0;
+}
+.radar .blip.b1 { top: 30%; left: 65%; animation-delay: .3s; }
+.radar .blip.b2 { top: 62%; left: 30%; animation-delay: 1.6s; }
+.radar .blip.b3 { top: 40%; left: 20%; animation-delay: 2.4s; }
+
+@keyframes sweep { to { transform: rotate(360deg); } }
+@keyframes blip {
+  0%, 92%, 100% { opacity: 0; }
+  4%, 14% { opacity: 1; }
+}
+
+.hero h1 {
+  font-size: 40px;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.hero .subtitle {
+  color: var(--text-dim);
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+.hero-search {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.hero-search .search-box .input {
+  padding: 16px 16px 16px 46px;
+  font-size: 15px;
+  background: rgba(5,7,10,0.7);
+}
+.hero-search .search-box svg.icon-search { width: 18px; height: 18px; left: 16px; }
+
+.type-badge-live {
+  margin-top: 10px;
+  min-height: 22px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.type-badge-live strong { color: var(--signal); }
+
+.engine-picker {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.hero-actions { margin-top: 22px; }
+
+/* ---------- Feature grid ---------- */
+.feature-card {
+  padding: 24px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease;
+}
+.feature-card:hover { transform: translateY(-3px); border-color: var(--cyan-dim); }
+.feature-card .icon-wrap {
+  width: 40px; height: 40px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,176,0,.09);
+  color: var(--signal);
+  margin-bottom: 14px;
+}
+.feature-card .icon-wrap svg { width: 20px; height: 20px; }
+.feature-card h3 { font-size: 15px; margin-bottom: 6px; }
+.feature-card p { font-size: 13px; color: var(--text-dim); margin: 0; }
+
+/* ---------- Console / scan log (signature detail on results pages) ---------- */
+.console {
+  background: #020405;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ok);
+  max-height: 160px;
+  overflow-y: auto;
+}
+.console .line { opacity: 0; animation: consoleIn .25s ease forwards; }
+.console .line .t { color: var(--text-dim); margin-right: 8px; }
+@keyframes consoleIn { to { opacity: 1; } }
+
+/* ---------- Loader dots ---------- */
+.loading-row { display:flex; align-items:center; gap:10px; color: var(--text-dim); font-family: var(--font-mono); font-size: 13px; }
+.pulse-dot { width:8px; height:8px; border-radius:50%; background: var(--signal); animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity:.3; transform: scale(.8);} 50% { opacity:1; transform: scale(1.1);} }

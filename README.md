@@ -1,278 +1,131 @@
-<div align="center">
+# 🛰️ OSINT Search Pro
 
-# 🔎 OSINT Search Pro
+**Plataforma de Inteligencia de Fuentes Abiertas (OSINT)** construida con Flask. Un único cuadro de búsqueda con detección automática de tipo, agregación de motores gratuitos y módulos especializados de reconocimiento — todo con datos ya públicos.
 
-### Plataforma OSINT de código abierto para búsquedas inteligentes y recolección de información pública.
-
-![Python](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge&logo=python)
-![Flask](https://img.shields.io/badge/Flask-3.x-black?style=for-the-badge&logo=flask)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-En%20Desarrollo-orange?style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/alvaroberrio23242-eng/OSINT_Search_Pro?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/alvaroberrio23242-eng/OSINT_Search_Pro?style=for-the-badge)
+![status](https://img.shields.io/badge/status-active-37d67a)
+![python](https://img.shields.io/badge/python-3.11%2B-3776AB)
+![flask](https://img.shields.io/badge/flask-3.x-black)
+![license](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
-### 🚀 Proyecto desarrollado con Python + Flask para facilitar investigaciones OSINT mediante múltiples motores de búsqueda y herramientas de inteligencia de fuentes abiertas.
+## ✨ Características
 
-</div>
+### 🔍 Búsqueda inteligente
+Escribe cualquier cosa — un nombre, un email, un dominio, una IP, un hash, un usuario o un teléfono — y la plataforma **detecta automáticamente el tipo** y sugiere el módulo correcto.
 
----
+### 🌐 Agregador multi-motor (sin API keys)
+- DuckDuckGo · Google · Bing · Brave Search · Yandex · Startpage · Mojeek
+- Ejecución **en paralelo** (ThreadPoolExecutor), con manejo de errores por motor.
 
-# 📖 Descripción
+### 🧩 Módulos especializados
+| Módulo | Qué hace |
+|---|---|
+| **Personas** | Comprueba en tiempo real si un nombre de usuario existe en GitHub, Reddit, X, Instagram, TikTok, Facebook, Pinterest, Steam, Twitch y YouTube. |
+| **Emails** | MX, registros DNS del dominio, Gravatar y búsqueda cruzada de usuarios en GitHub. |
+| **Dominios** | WHOIS, registros DNS completos y subdominios vía Certificate Transparency (crt.sh). |
+| **Direcciones IP** | Geolocalización (país, ciudad, ISP, ASN), reverse DNS y verificación de 12 puertos comunes. |
+| **Google Dorks** | Generador automático de operadores (`site:`, `filetype:`, `intitle:`, `inurl:`, `cache:`, `related:`...) y combinaciones predefinidas. |
+| **Herramientas** | Base64, generador/identificador de hashes, decodificador de URL, generador de QR, generador de contraseñas, DNS lookup, visor de robots.txt y de cabeceras HTTP. |
 
-**OSINT Search Pro** es una plataforma diseñada para investigadores, analistas de ciberseguridad, periodistas y profesionales de inteligencia que necesitan recopilar información pública desde diferentes fuentes de Internet.
+### 📊 Estadísticas reales
+Contadores de búsquedas, tipos de consulta y motores usados — calculados a partir del uso real guardado en `localStorage`, no simulados.
 
-Actualmente integra un buscador basado en **DuckDuckGo**, pero su objetivo es convertirse en una plataforma completa con múltiples módulos OSINT.
+### 🕘 Historial y favoritos
+Guardado en el navegador (localStorage) con filtro de búsqueda y posibilidad de marcar consultas como favoritas.
 
----
-
-# ✨ Características actuales
-
-- 🔍 Búsqueda mediante DuckDuckGo
-- ⚡ Interfaz web desarrollada con Flask
-- 🌙 Diseño oscuro
-- 📄 Resultados organizados
-- 🔗 Acceso directo a los enlaces encontrados
-- 💻 Código modular
-
----
-
-# 🚧 Próximas funciones
-
-## Motores de búsqueda
-
-- ✅ DuckDuckGo
-- ⏳ Bing
-- ⏳ Brave Search
-- ⏳ Google Dorks
-- ⏳ Yahoo
-- ⏳ Startpage
+### 🎛️ Diseño "Recon Console"
+Interfaz oscura con sidebar persistente, paneles con esquinas tipo retícula, radar animado y fondo de partículas — pensada para transmitir la estética de una consola de reconocimiento, no una plantilla genérica.
 
 ---
 
-## Herramientas OSINT
+## 🖥️ Capturas
 
-- 🌍 WHOIS
-- 🌐 DNS Lookup
-- 📡 Geolocalización IP
-- 📧 Email Intelligence
-- 📱 Redes Sociales
-- 🛰 Shodan
-- 🦠 VirusTotal
-- 🔐 Hash Lookup
-- 📂 Metadata Extraction
+> Añade aquí tus propias capturas de pantalla tras desplegar la app (`/`, `/personas`, `/dominios`, `/ips`, `/herramientas`).
 
 ---
 
-## Exportación
-
-- 📄 PDF
-- 📊 Excel
-- 📁 CSV
-- 📦 JSON
-
----
-
-# 🖥 Capturas
-
-## Página principal
+## 🏗️ Arquitectura
 
 ```
-(Agregar captura aquí)
-
-docs/screenshot-home.png
-```
-
----
-
-## Resultados
-
-```
-(Agregar captura aquí)
-
-docs/screenshot-results.png
-```
-
----
-
-# 📂 Estructura del proyecto
-
-```
-OSINT_Search_Pro
-│
-├── app.py
-├── README.md
-├── requirements.txt
-├── .gitignore
-│
-├── buscadores/
-│   ├── __init__.py
-│   └── duckduckgo.py
-│
-├── templates/
-│   ├── index.html
-│   └── resultados.html
-│
+OSINT_Search_Pro/
+├── app.py                     # Punto de entrada Flask
+├── config.py                  # Configuración y feature flags
+├── controllers/
+│   ├── main_controller.py     # Rutas de páginas (HTML)
+│   └── api_controller.py      # Rutas de API (JSON)
+├── services/
+│   ├── detector.py            # Detección automática de tipo de consulta
+│   ├── dorks.py                # Generador de Google Dorks
+│   ├── email_intel.py         # MX / DNS / Gravatar / GitHub
+│   ├── domain_intel.py        # WHOIS / DNS / subdominios (crt.sh)
+│   ├── ip_intel.py            # Geolocalización / puertos comunes
+│   ├── username_intel.py      # Verificación multi-plataforma
+│   ├── tools_service.py       # Herramientas auxiliares
+│   ├── search_service.py      # Orquestador de motores en paralelo
+│   └── engines/                # Un módulo por motor de búsqueda
 ├── static/
-│   ├── css/
-│   ├── js/
-│   └── img/
-│
-├── exportadores/
-│
-├── database/
-│
-└── resultados/
+│   ├── css/                   # main / components / dashboard / animations
+│   └── js/
+│       ├── api.js storage.js render.js app.js particles.js
+│       └── pages/              # Un script por página
+└── templates/                 # Jinja2 (layout + una plantilla por módulo)
 ```
+
+Patrón **MVC ligero**: `controllers` (rutas) → `services` (lógica de negocio y llamadas externas) → `templates`/`static` (presentación). El frontend es JS vanilla (sin build step) que consume la API JSON interna.
 
 ---
 
-# ⚙ Instalación
-
-## Clonar el repositorio
+## 🚀 Instalación
 
 ```bash
-git clone https://github.com/alvaroberrio23242-eng/OSINT_Search_Pro.git
-```
-
-Entrar al proyecto
-
-```bash
+git clone https://github.com/tu-usuario/OSINT_Search_Pro.git
 cd OSINT_Search_Pro
-```
-
-Crear entorno virtual
-
-Windows
-
-```bash
 python -m venv .venv
-```
-
-Activar entorno
-
-PowerShell
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-Git Bash
-
-```bash
-source .venv/Scripts/activate
-```
-
-Instalar dependencias
-
-```bash
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-Ejecutar
-
-```bash
+cp .env.example .env               # opcional
 python app.py
 ```
 
-Abrir
+Abre `http://localhost:5000`.
 
-```
-http://127.0.0.1:5000
-```
-
----
-
-# 🛠 Tecnologías
-
-- Python 3
-- Flask
-- HTML5
-- CSS3
-- JavaScript
-- DuckDuckGo Search API (ddgs)
+### Despliegue (Heroku / Render / Railway)
+El proyecto ya incluye `Procfile` (`web: gunicorn app:app`). Solo conecta el repositorio y despliega.
 
 ---
 
-# 📌 Roadmap
+## 🔑 Integraciones opcionales
 
-## Versión 1.0
-
-- [x] Buscador DuckDuckGo
-- [x] Interfaz Flask
-- [x] Resultados web
-
-## Versión 2.0
-
-- [ ] Bing
-- [ ] Brave
-- [ ] Google Dorks
-- [ ] Exportar PDF
-- [ ] Exportar Excel
-
-## Versión 3.0
-
-- [ ] WHOIS
-- [ ] DNS
-- [ ] GeoIP
-- [ ] VirusTotal
-- [ ] Shodan
-
-## Versión 4.0
-
-- [ ] Dashboard
-- [ ] Estadísticas
-- [ ] API REST
-- [ ] Sistema de usuarios
+Shodan, Censys, VirusTotal, HaveIBeenPwned, Hunter.io y SecurityTrails **no están activadas por defecto** (requieren claves de pago/registro). El código ya prevé sus variables de entorno en `config.py` para quien quiera extender la plataforma; sin ellas, el resto de módulos funciona con normalidad usando fuentes 100% gratuitas.
 
 ---
 
-# 🤝 Contribuciones
+## 📡 API interna
 
-Las contribuciones son bienvenidas.
+Todas las rutas devuelven JSON y aceptan `POST` con cuerpo `application/json`.
 
-Si deseas mejorar el proyecto:
-
-1. Haz un Fork.
-2. Crea una nueva rama.
-
-```bash
-git checkout -b nueva-funcion
-```
-
-3. Haz Commit.
-
-```bash
-git commit -m "Nueva funcionalidad"
-```
-
-4. Envía un Pull Request.
+| Endpoint | Descripción |
+|---|---|
+| `POST /api/detect` | Detecta el tipo de una consulta |
+| `POST /api/search` | Búsqueda multi-motor |
+| `POST /api/dorks` | Genera Google Dorks |
+| `POST /api/lookup/email` | Análisis de email |
+| `POST /api/lookup/domain` | Análisis de dominio |
+| `POST /api/lookup/ip` | Análisis de IP |
+| `POST /api/lookup/username` | Verificación de usuario |
+| `POST /api/tools/*` | Base64, hash, url, password, dns, robots, headers, qr |
 
 ---
 
-# 📜 Licencia
+## ⚠️ Uso responsable
 
-Este proyecto está distribuido bajo la licencia MIT.
+OSINT Search Pro consulta exclusivamente **información ya pública** (motores de búsqueda, WHOIS, DNS, certificados TLS públicos, perfiles públicos). El escaneo de puertos incluido es un chequeo diagnóstico ligero (12 puertos, timeout corto) pensado para **activos propios o con autorización expresa**. El scraping de motores de búsqueda depende de su HTML público y puede romperse si esos sitios cambian su estructura; úsalo respetando los términos de servicio de cada proveedor.
 
-Consulta el archivo **LICENSE** para más información.
-
----
-
-# 👨‍💻 Autor
-
-## Álvaro Berrío
-
-Desarrollador de software e investigador interesado en herramientas OSINT, automatización y ciberseguridad.
-
-GitHub
-
-https://github.com/alvaroberrio23242-eng
+Este proyecto es un ejercicio educativo / de portfolio. No está afiliado a ninguno de los motores o plataformas que consulta.
 
 ---
 
-<div align="center">
+## 📄 Licencia
 
-## ⭐ Si este proyecto te resulta útil, considera darle una estrella en GitHub.
-
-</div>
+MIT — libre para usar, modificar y distribuir.

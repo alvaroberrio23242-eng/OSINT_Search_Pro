@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Dominios — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Módulo · Domain Intelligence</div>{% endblock %}
+
+{% block content %}
+<div class="panel bracketed fade-in" style="margin-bottom:20px;">
+  <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Analizar dominio</h3></div>
+  <form id="domain-form" class="input-row">
+    <input id="domain-input" class="input" type="text" placeholder="ej: ejemplo.com" autocomplete="off" required>
+    <button type="submit" class="btn primary">Analizar</button>
+  </form>
+</div>
+
+<div id="domain-results"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/dominios.js') }}"></script>
+{% endblock %}

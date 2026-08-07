@@ -1,120 +1,77 @@
 {% extends "layout.html" %}
+{% block title %}OSINT Search Pro — Panel{% endblock %}
 
-{% block titulo %}OSINT Search Pro{% endblock %}
+{% block topbar_extra %}
+<div class="eyebrow">Plataforma de Inteligencia de Fuentes Abiertas</div>
+{% endblock %}
 
-{% block contenido %}
+{% block content %}
+<section class="hero fade-in">
+  <div class="radar">
+    <div class="sweep"></div>
+    <div class="blip b1"></div>
+    <div class="blip b2"></div>
+    <div class="blip b3"></div>
+    <div class="core"></div>
+  </div>
+  <h1>OSINT Search Pro</h1>
+  <p class="subtitle">Un único cuadro de búsqueda. Detección automática de tipo. Múltiples fuentes abiertas a la vez.</p>
 
-<section class="hero">
+  <form id="hero-search-form" class="hero-search">
+    <div class="search-box">
+      <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="hero-query" class="input" type="text" autocomplete="off"
+        placeholder="Persona, email, dominio, IP, hash, usuario o teléfono…">
+    </div>
+    <div id="type-live" class="type-badge-live"></div>
 
-    <div class="glass hero-card">
-
-        <div class="hero-logo">
-
-            <i class="fa-solid fa-satellite-dish"></i>
-
-        </div>
-
-        <h1>OSINT Search Pro</h1>
-
-        <p class="subtitle">
-
-            Plataforma de Inteligencia de Fuentes Abiertas
-
-        </p>
-
-        <form action="/buscar" method="POST">
-
-            <input
-                type="text"
-                name="consulta"
-                class="search-box"
-                placeholder="Buscar persona, email, dominio, IP o empresa..."
-                required>
-
-            <div class="search-engines">
-
-                <label>
-
-                    <input type="radio" name="motor" value="duckduckgo" checked>
-
-                    🦆 DuckDuckGo
-
-                </label>
-
-                <label>
-
-                    <input type="radio" name="motor" value="bing" disabled>
-
-                    🔍 Bing (Próximamente)
-
-                </label>
-
-                <label>
-
-                    <input type="radio" name="motor" value="google" disabled>
-
-                    🌐 Google Dorks (Próximamente)
-
-                </label>
-
-            </div>
-
-            <button class="btn search-btn">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                Buscar
-
-            </button>
-
-        </form>
-
+    <div id="engine-picker" class="engine-picker chip-select">
+      {% for m in motores %}
+      <label class="chip">
+        <input type="checkbox" value="{{ m.id }}" checked>
+        <span class="dot"></span>{{ m.nombre }}
+      </label>
+      {% endfor %}
     </div>
 
+    <div class="hero-actions">
+      <button type="submit" class="btn primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        Buscar
+      </button>
+    </div>
+  </form>
 </section>
 
-<section class="features">
+<div id="hero-results" style="margin-top:24px;" hidden></div>
 
-    <div class="card">
-
-        <i class="fa-solid fa-user-secret fa-2x"></i>
-
-        <h3>Personas</h3>
-
-        <p>Búsqueda de nombres y perfiles públicos.</p>
-
-    </div>
-
-    <div class="card">
-
-        <i class="fa-solid fa-envelope fa-2x"></i>
-
-        <h3>Emails</h3>
-
-        <p>Preparado para integrar inteligencia sobre correos.</p>
-
-    </div>
-
-    <div class="card">
-
-        <i class="fa-solid fa-globe fa-2x"></i>
-
-        <h3>Dominios</h3>
-
-        <p>WHOIS, DNS y subdominios próximamente.</p>
-
-    </div>
-
-    <div class="card">
-
-        <i class="fa-solid fa-network-wired fa-2x"></i>
-
-        <h3>Direcciones IP</h3>
-
-        <p>Geolocalización e información de red.</p>
-
-    </div>
-
+<section style="margin-top:36px;">
+  <div class="eyebrow" style="margin-bottom:10px;">Módulos especializados</div>
+  <div class="grid cols-4 stagger">
+    <a href="/personas" class="panel feature-card">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></div>
+      <h3>Personas</h3>
+      <p>Búsqueda de nombres y perfiles públicos en más de 10 plataformas.</p>
+    </a>
+    <a href="/emails" class="panel feature-card">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+      <h3>Emails</h3>
+      <p>MX, DNS, Gravatar y búsqueda cruzada en GitHub.</p>
+    </a>
+    <a href="/dominios" class="panel feature-card">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 4 6 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6-4-9s1.5-6.3 4-9z"/></svg></div>
+      <h3>Dominios</h3>
+      <p>WHOIS, registros DNS y subdominios vía Certificate Transparency.</p>
+    </a>
+    <a href="/ips" class="panel feature-card">
+      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></div>
+      <h3>Direcciones IP</h3>
+      <p>Geolocalización, ISP/ASN y verificación de puertos comunes.</p>
+    </a>
+  </div>
 </section>
+{% endblock %}
 
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/index.js') }}"></script>
 {% endblock %}

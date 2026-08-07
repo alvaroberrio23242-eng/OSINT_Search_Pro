@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block title %}Herramientas — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Módulo · Toolbox</div>{% endblock %}
+
+{% block content %}
+<div class="panel bracketed fade-in" data-tabs="#tools-scope">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab-target="base64">Base64</button>
+    <button class="tab-btn" data-tab-target="hash">Hash Generator</button>
+    <button class="tab-btn" data-tab-target="hashid">Hash Identifier</button>
+    <button class="tab-btn" data-tab-target="url">URL Decoder</button>
+    <button class="tab-btn" data-tab-target="qr">QR Generator</button>
+    <button class="tab-btn" data-tab-target="password">Password Generator</button>
+    <button class="tab-btn" data-tab-target="dns">DNS Lookup</button>
+    <button class="tab-btn" data-tab-target="robots">Robots.txt</button>
+    <button class="tab-btn" data-tab-target="headers">HTTP Headers</button>
+  </div>
+
+  <div id="tools-scope">
+    <div data-tab-panel="base64">
+      <div class="field"><label>Texto</label><textarea id="b64-text" class="input" rows="4" placeholder="Texto a codificar/decodificar"></textarea></div>
+      <div class="input-row" style="margin-bottom:14px;">
+        <button class="btn primary" id="b64-encode">Codificar</button>
+        <button class="btn" id="b64-decode">Decodificar</button>
+      </div>
+      <div id="b64-out"></div>
+    </div>
+
+    <div data-tab-panel="hash" hidden>
+      <div class="field"><label>Texto</label><input id="hash-text" class="input" placeholder="Texto a hashear"></div>
+      <button class="btn primary" id="hash-run">Generar hashes</button>
+      <div id="hash-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div data-tab-panel="hashid" hidden>
+      <div class="field"><label>Hash</label><input id="hashid-text" class="input" placeholder="Pega un hash para identificarlo"></div>
+      <button class="btn primary" id="hashid-run">Identificar</button>
+      <div id="hashid-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div data-tab-panel="url" hidden>
+      <div class="field"><label>URL / texto codificado</label><input id="url-text" class="input" placeholder="https://ejemplo.com/%3Fid%3D1"></div>
+      <button class="btn primary" id="url-run">Decodificar</button>
+      <div id="url-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div data-tab-panel="qr" hidden>
+      <div class="field"><label>Contenido</label><input id="qr-text" class="input" placeholder="Texto o URL"></div>
+      <button class="btn primary" id="qr-run">Generar QR</button>
+      <div id="qr-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div data-tab-panel="password" hidden>
+      <div class="input-row" style="margin-bottom:14px;flex-wrap:wrap;">
+        <div class="field" style="max-width:120px;"><label>Longitud</label><input id="pw-length" class="input" type="number" value="16" min="4" max="128"></div>
+        <label class="chip checked"><input id="pw-mayus" type="checkbox" checked><span class="dot"></span>Mayúsculas</label>
+        <label class="chip checked"><input id="pw-numeros" type="checkbox" checked><span class="dot"></span>Números</label>
+        <label class="chip checked"><input id="pw-simbolos" type="checkbox" checked><span class="dot"></span>Símbolos</label>
+      </div>
+      <button class="btn primary" id="pw-run">Generar contraseña</button>
+      <div id="pw-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div data-tab-panel="dns" hidden>
+      <div class="field"><label>Dominio</label><input id="dns-text" class="input" placeholder="ejemplo.com"></div>
+      <button class="btn primary" id="dns-run">Consultar</button>
+      <div id="dns-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div data-tab-panel="robots" hidden>
+      <div class="field"><label>Dominio</label><input id="robots-text" class="input" placeholder="ejemplo.com"></div>
+      <button class="btn primary" id="robots-run">Ver robots.txt</button>
+      <div id="robots-out" style="margin-top:14px;"></div>
+    </div>
+
+    <div data-tab-panel="headers" hidden>
+      <div class="field"><label>URL</label><input id="headers-text" class="input" placeholder="https://ejemplo.com"></div>
+      <button class="btn primary" id="headers-run">Ver cabeceras</button>
+      <div id="headers-out" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/herramientas.js') }}"></script>
+{% endblock %}

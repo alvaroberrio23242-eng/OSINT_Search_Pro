@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Emails — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Módulo · Email Intelligence</div>{% endblock %}
+
+{% block content %}
+<div class="panel bracketed fade-in" style="margin-bottom:20px;">
+  <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Analizar dirección de correo</h3></div>
+  <form id="email-form" class="input-row">
+    <input id="email-input" class="input" type="email" placeholder="ej: contacto@empresa.com" autocomplete="off" required>
+    <button type="submit" class="btn primary">Analizar</button>
+  </form>
+</div>
+
+<div id="email-results"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/emails.js') }}"></script>
+{% endblock %}

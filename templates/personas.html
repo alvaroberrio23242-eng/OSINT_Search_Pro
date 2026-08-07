@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Personas — OSINT Search Pro{% endblock %}
+{% block topbar_extra %}<div class="eyebrow">Módulo · Personas</div>{% endblock %}
+
+{% block content %}
+<div class="panel bracketed fade-in" style="margin-bottom:20px;">
+  <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Buscar por nombre de usuario</h3></div>
+  <p class="text-dim" style="margin-bottom:16px;">Comprueba en tiempo real si un nombre de usuario existe en las plataformas más comunes. Solo se consultan perfiles públicos.</p>
+  <form id="username-form" class="input-row">
+    <input id="username-input" class="input" type="text" placeholder="ej: johndoe" autocomplete="off" required>
+    <button type="submit" class="btn primary">Buscar</button>
+  </form>
+</div>
+
+<div id="username-results"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/pages/personas.js') }}"></script>
+{% endblock %}

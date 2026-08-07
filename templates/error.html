@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPack Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><strong>EduPack Builder</strong></header>
+  <p class="eyebrow">Aviso</p>
+  <h1>Ese paquete ya no está disponible.</h1>
+  <p class="lead">{{ mensaje }}</p>
+  <a class="btn" href="{{ url_for('inicio') }}">Generar un paquete nuevo</a>
+</div>
+</body>
+</html>
