@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const data = await OSP.Api.email(email);
-      OSP.Storage.addHistory({ tipo: "email", tipo_label: "Email", consulta: email, seccion: "emails" });
 
       const mx = Array.isArray(data.mx)
         ? `<table class="data"><thead><tr><th>Prioridad</th><th>Servidor</th></tr></thead><tbody>${data.mx

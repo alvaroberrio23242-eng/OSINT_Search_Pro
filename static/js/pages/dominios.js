@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const data = await OSP.Api.domain(dominio);
-      OSP.Storage.addHistory({ tipo: "domain", tipo_label: "Dominio", consulta: dominio, seccion: "dominios" });
 
       const subdominios = data.subdominios.subdominios || [];
       const subList = subdominios.length

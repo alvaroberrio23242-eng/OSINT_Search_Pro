@@ -41,11 +41,6 @@ def herramientas():
     return render_template("herramientas.html")
 
 
-@main.route("/historial")
-def historial():
-    return render_template("historial.html")
-
-
 @main.route("/configuracion")
 def configuracion():
     return render_template("configuracion.html", servicios=Config.optional_services_status())

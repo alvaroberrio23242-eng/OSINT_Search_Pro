@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const data = await OSP.Api.dorks(consulta);
-      OSP.Storage.addHistory({ tipo: "dork", tipo_label: "Google Dork", consulta, seccion: "dorks" });
 
       const presets = data.presets
         .map(

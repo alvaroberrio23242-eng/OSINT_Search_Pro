@@ -18,12 +18,28 @@ PLATAFORMAS = {
     "YouTube":   {"url": "https://www.youtube.com/@{u}", "not_found_status": [404]},
 }
 
+# Códigos que significan "el sitio bloqueó/limitó la petición", no "no existe"
+# ni "existe". Mezclarlos con 'no encontrado' es lo que causaba falsos
+# positivos (ver services/http_utils.MotorBloqueadoError para el mismo
+# problema en el buscador).
+_CODIGOS_BLOQUEO = {403, 429, 999}
+
 
 def _check(nombre, cfg, usuario):
     url = cfg["url"].format(u=usuario)
     try:
         session = get_session()
         r = session.get(url, timeout=6, allow_redirects=True)
+
+        if r.status_code in _CODIGOS_BLOQUEO:
+            return {
+                "plataforma": nombre,
+                "url": url,
+                "existe": None,
+                "bloqueado": True,
+                "status": r.status_code,
+            }
+
         existe = r.status_code not in cfg.get("not_found_status", [404])
         for frase in cfg.get("not_found_text", []):
             if frase.lower() in r.text.lower():

@@ -4,6 +4,17 @@
 
 {% block content %}
 <div class="panel bracketed fade-in" style="margin-bottom:20px;">
+  <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Buscar por nombre completo</h3></div>
+  <p class="text-dim" style="margin-bottom:16px;">Busca menciones reales en la web (noticias, blogs, perfiles públicos) y genera enlaces directos a LinkedIn, cursos y registros legales para revisar manualmente.</p>
+  <form id="persona-form" class="input-row">
+    <input id="persona-input" class="input" type="text" placeholder="ej: Juan Pérez Gómez" autocomplete="off" required>
+    <button type="submit" class="btn primary">Investigar</button>
+  </form>
+</div>
+
+<div id="persona-results"></div>
+
+<div class="panel bracketed fade-in" style="margin:20px 0;">
   <div class="panel-head"><h3 class="panel-title"><span class="sq"></span>Buscar por nombre de usuario</h3></div>
   <p class="text-dim" style="margin-bottom:16px;">Comprueba en tiempo real si un nombre de usuario existe en las plataformas más comunes. Solo se consultan perfiles públicos.</p>
   <form id="username-form" class="input-row">

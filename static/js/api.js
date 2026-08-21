@@ -32,6 +32,7 @@ OSP.Api = (() => {
     domain: (dominio) => post("/api/lookup/domain", { dominio }),
     ip: (ip, escanear_puertos = true) => post("/api/lookup/ip", { ip, escanear_puertos }),
     username: (usuario) => post("/api/lookup/username", { usuario }),
+    persona: (nombre) => post("/api/lookup/persona", { nombre }),
     tools: {
       base64: (texto, modo) => post("/api/tools/base64", { texto, modo }),
       hash: (texto) => post("/api/tools/hash", { texto }),

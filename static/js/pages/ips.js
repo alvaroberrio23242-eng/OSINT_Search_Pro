@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const data = await OSP.Api.ip(ip, escanear);
-      OSP.Storage.addHistory({ tipo: "ip", tipo_label: "IP", consulta: ip, seccion: "ips" });
 
       const geo = data.geolocalizacion || {};
       const geoTable = geo.error

@@ -40,15 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const data = await OSP.Api.search(consulta, motores.length ? motores : null);
-      OSP.Storage.addHistory({
-        tipo: data.tipo.tipo,
-        tipo_label: data.tipo.label,
-        consulta,
-        seccion: "buscar",
-        duracion_seg: data.duracion_seg,
-        motores: data.motores.map((m) => m.motor),
-        total: data.total_resultados,
-      });
       renderResultados(data);
     } catch (err) {
       resultsWrap.innerHTML = `<div class="panel bracketed">${OSP.Render.emptyState("", "Error al buscar: " + err.message)}</div>`;
@@ -80,17 +71,28 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>`;
         }
         const items = m.resultados
-          .map(
-            (r) => `<div class="result-item">
-              <div class="url">${OSP.Render.esc(r.url)}</div>
-              <div class="title"><a href="${OSP.Render.esc(r.url)}" target="_blank" rel="noopener">${OSP.Render.esc(r.titulo)}</a></div>
-              <div class="desc">${OSP.Render.esc(r.descripcion)}</div>
-            </div>`
+          .map((r) =>
+            m.demo
+              ? `<div class="result-item">
+                  <div class="title" style="opacity:.75;">${OSP.Render.esc(r.titulo)}</div>
+                  <div class="desc">${OSP.Render.esc(r.descripcion)}</div>
+                </div>`
+              : `<div class="result-item">
+                  <div class="url">${OSP.Render.esc(r.url)}</div>
+                  <div class="title"><a href="${OSP.Render.esc(r.url)}" target="_blank" rel="noopener">${OSP.Render.esc(r.titulo)}</a></div>
+                  <div class="desc">${OSP.Render.esc(r.descripcion)}</div>
+                </div>`
           )
           .join("");
+        const badges = m.demo
+          ? `${OSP.Render.badge(m.resultados.length + " resultados", "ok")}${OSP.Render.badge("Demostración", "warn")}`
+          : OSP.Render.badge(m.resultados.length + " resultados", "ok");
+        const aviso = m.demo
+          ? `<p class="text-dim" style="margin:6px 0 12px;font-size:.85em;">Este motor está bloqueando las búsquedas automáticas ahora mismo (típico en hosting en la nube), así que se muestran resultados de ejemplo.</p>`
+          : "";
         return `<div class="panel" style="margin-bottom:14px;">
-          <div class="panel-head"><h3 class="panel-title">${OSP.Render.esc(m.motor)}</h3>${OSP.Render.badge(m.resultados.length + " resultados", "ok")}</div>
-          ${items}
+          <div class="panel-head"><h3 class="panel-title">${OSP.Render.esc(m.motor)}</h3><div style="display:flex;gap:8px;">${badges}</div></div>
+          ${aviso}${items}
         </div>`;
       })
       .join("");

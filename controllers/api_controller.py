@@ -3,7 +3,7 @@ import time
 from flask import Blueprint, jsonify, request
 
 from services import dorks as dorks_service
-from services import email_intel, domain_intel, ip_intel, username_intel, tools_service
+from services import email_intel, domain_intel, ip_intel, username_intel, tools_service, person_intel
 from services.detector import detectar_tipo
 from services.search_service import realizar_busqueda, motores_disponibles
 
@@ -87,6 +87,15 @@ def lookup_username():
     if not usuario:
         return jsonify({"error": "Usuario vacío"}), 400
     return jsonify({"usuario": usuario, "plataformas": username_intel.buscar_usuario(usuario)})
+
+
+@api.route("/lookup/persona", methods=["POST"])
+def lookup_persona():
+    body = request.json or {}
+    nombre = body.get("nombre", "").strip()
+    if not nombre:
+        return jsonify({"error": "Nombre vacío"}), 400
+    return jsonify(person_intel.investigar_persona(nombre))
 
 
 # ---------------- Herramientas ----------------

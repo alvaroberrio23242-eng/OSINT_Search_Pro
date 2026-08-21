@@ -26,6 +26,17 @@ class Config:
         "Chrome/124.0 Safari/537.36 OSINTSearchPro/2.0"
     )
 
+    # Clave gratuita de Brave Search API (https://api.search.brave.com/register).
+    # Si está presente, el motor "Brave Search" usa la API oficial (resultados
+    # reales, no bloqueados por IPs de hosting) en vez de scraping HTML.
+    BRAVE_API_KEY = os.environ.get("BRAVE_API_KEY", "")
+
+    # Google Custom Search JSON API (https://programmablesearchengine.google.com/
+    # + https://console.cloud.google.com/apis/credentials). Gratis hasta
+    # 100 consultas/día. Se necesitan las dos variables para activarse.
+    GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+    GOOGLE_CSE_ID = os.environ.get("GOOGLE_CSE_ID", "")
+
     # Claves opcionales de servicios de pago (no requeridas para funcionar)
     HUNTER_API_KEY = os.environ.get("HUNTER_API_KEY", "")
     SHODAN_API_KEY = os.environ.get("SHODAN_API_KEY", "")
@@ -38,6 +49,8 @@ class Config:
     @classmethod
     def optional_services_status(cls):
         return {
+            "brave_search_api": bool(cls.BRAVE_API_KEY),
+            "google_custom_search": bool(cls.GOOGLE_API_KEY and cls.GOOGLE_CSE_ID),
             "hunter": bool(cls.HUNTER_API_KEY),
             "shodan": bool(cls.SHODAN_API_KEY),
             "virustotal": bool(cls.VIRUSTOTAL_API_KEY),
