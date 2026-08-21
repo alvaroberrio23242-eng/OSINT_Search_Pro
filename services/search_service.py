@@ -1,5 +1,8 @@
+import time
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from config import Config
 from services.demo_data import generar_resultados_demo
 from services.engines import duckduckgo, google, bing, brave, yandex, startpage, mojeek
 
@@ -12,6 +15,30 @@ MOTORES = {
     "startpage": startpage,
     "mojeek": mojeek,
 }
+
+_cache = {}
+_cache_lock = threading.Lock()
+
+
+def _cache_key(consulta, motores, limite):
+    return (consulta.strip().lower(), tuple(sorted(motores)), limite)
+
+
+def _get_cache(key):
+    with _cache_lock:
+        entry = _cache.get(key)
+        if not entry:
+            return None
+        resultado, expira = entry
+        if time.time() > expira:
+            del _cache[key]
+            return None
+        return resultado
+
+
+def _set_cache(key, resultado):
+    with _cache_lock:
+        _cache[key] = (resultado, time.time() + Config.SEARCH_CACHE_TTL)
 
 
 def motores_disponibles():
@@ -47,6 +74,11 @@ def realizar_busqueda(consulta, motores=None, limite=None):
         motores = list(MOTORES.keys())
     motores = [m for m in motores if m in MOTORES]
 
+    key = _cache_key(consulta, motores, limite)
+    cacheado = _get_cache(key)
+    if cacheado is not None:
+        return cacheado
+
     salida = []
     with ThreadPoolExecutor(max_workers=max(len(motores), 1)) as ex:
         futuros = {ex.submit(MOTORES[m].buscar, consulta, limite): m for m in motores}
@@ -63,4 +95,6 @@ def realizar_busqueda(consulta, motores=None, limite=None):
     orden = {m: i for i, m in enumerate(motores)}
     nombre_a_id = {MOTORES[m].NOMBRE: m for m in motores}
     salida.sort(key=lambda r: orden.get(nombre_a_id.get(r["motor"], ""), 99))
+
+    _set_cache(key, salida)
     return salida

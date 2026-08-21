@@ -2,6 +2,8 @@ import time
 
 from flask import Blueprint, jsonify, request
 
+from extensions import limiter
+
 from services import dorks as dorks_service
 from services import email_intel, domain_intel, ip_intel, username_intel, tools_service, person_intel
 from services.detector import detectar_tipo
@@ -22,6 +24,7 @@ def motores():
 
 
 @api.route("/search", methods=["POST"])
+@limiter.limit("15 per minute")
 def search():
     body = request.json or {}
     consulta = body.get("consulta", "").strip()
@@ -56,6 +59,7 @@ def dorks():
 
 
 @api.route("/lookup/email", methods=["POST"])
+@limiter.limit("10 per minute")
 def lookup_email():
     email = (request.json or {}).get("email", "").strip()
     if not email:
@@ -64,6 +68,7 @@ def lookup_email():
 
 
 @api.route("/lookup/domain", methods=["POST"])
+@limiter.limit("10 per minute")
 def lookup_domain():
     dominio = (request.json or {}).get("dominio", "").strip()
     if not dominio:
@@ -72,6 +77,7 @@ def lookup_domain():
 
 
 @api.route("/lookup/ip", methods=["POST"])
+@limiter.limit("10 per minute")
 def lookup_ip():
     body = request.json or {}
     ip = body.get("ip", "").strip()
@@ -82,6 +88,7 @@ def lookup_ip():
 
 
 @api.route("/lookup/username", methods=["POST"])
+@limiter.limit("10 per minute")
 def lookup_username():
     usuario = (request.json or {}).get("usuario", "").strip()
     if not usuario:
@@ -90,6 +97,7 @@ def lookup_username():
 
 
 @api.route("/lookup/persona", methods=["POST"])
+@limiter.limit("10 per minute")
 def lookup_persona():
     body = request.json or {}
     nombre = body.get("nombre", "").strip()

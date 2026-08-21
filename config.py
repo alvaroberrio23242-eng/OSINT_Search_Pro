@@ -15,6 +15,9 @@ class Config:
     HTTP_TIMEOUT = float(os.environ.get("OSP_HTTP_TIMEOUT", 6))
     MAX_RESULTS_PER_ENGINE = int(os.environ.get("OSP_MAX_RESULTS", 8))
 
+    # Segundos que se guarda una búsqueda en caché antes de repetirla contra los motores
+    SEARCH_CACHE_TTL = int(os.environ.get("OSP_CACHE_TTL", 3600))
+
     # Puertos comunes para el escáner básico (solo diagnóstico, no intrusivo)
     COMMON_PORTS = [21, 22, 23, 25, 53, 80, 110, 143, 443, 3306, 3389, 8080]
     PORT_SCAN_TIMEOUT = float(os.environ.get("OSP_PORT_TIMEOUT", 0.6))
