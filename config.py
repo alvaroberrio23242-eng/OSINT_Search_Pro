@@ -1,4 +1,5 @@
 import os
+import secrets
 
 
 class Config:
@@ -9,7 +10,12 @@ class Config:
     y el resto de la plataforma sigue funcionando con fuentes gratuitas.
     """
 
-    SECRET_KEY = os.environ.get("SECRET_KEY", "osint-search-pro-dev-key")
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    if not SECRET_KEY:
+        if os.environ.get("OSP_DEV") == "1":
+            SECRET_KEY = secrets.token_hex(32)  # solo desarrollo local: clave efimera
+        else:
+            raise RuntimeError("SECRET_KEY no configurada. Definela como variable de entorno (OSP_DEV=1 solo en local).")
 
     # Timeouts / límites usados por los servicios de red
     HTTP_TIMEOUT = float(os.environ.get("OSP_HTTP_TIMEOUT", 6))
