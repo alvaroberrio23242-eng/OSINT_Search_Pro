@@ -26,6 +26,10 @@ class Config:
 
     # Puertos comunes para el escáner básico (solo diagnóstico, no intrusivo)
     COMMON_PORTS = [21, 22, 23, 25, 53, 80, 110, 143, 443, 3306, 3389, 8080]
+
+    # Escaner de puertos: apagado por defecto (la demo publica no debe escanear IPs ajenas).
+    # Para usarlo en local: OSP_ENABLE_PORTSCAN=1
+    ENABLE_PORTSCAN = os.environ.get("OSP_ENABLE_PORTSCAN") == "1"
     PORT_SCAN_TIMEOUT = float(os.environ.get("OSP_PORT_TIMEOUT", 0.6))
 
     # User-Agent usado en las peticiones salientes

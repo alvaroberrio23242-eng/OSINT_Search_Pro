@@ -4,6 +4,7 @@ import time
 import requests
 
 from config import Config
+from services import net_guard
 
 
 class MotorBloqueadoError(Exception):
@@ -64,3 +65,56 @@ def safe_get(url, params=None, timeout=None, headers=None, reintentos=2):
         return r
 
     raise ultimo_error
+
+
+def safe_get_public(url, timeout=None, headers=None, max_redirects=3, max_bytes=1_000_000):
+    """GET para destinos escritos por el usuario (anti-SSRF).
+
+    Valida el destino en cada salto, incluidas las redirecciones, y limita el
+    tamano de la respuesta. No usar para las URLs fijas de los motores.
+    """
+    from urllib.parse import urljoin, urlparse
+
+    actual = url
+    for _ in range(max_redirects + 1):
+        if urlparse(actual).scheme not in ("http", "https"):
+            raise ValueError("Solo se permiten URLs http o https")
+        ok, motivo, _host = net_guard.validar_destino(actual)
+        if not ok:
+            raise ValueError(motivo)
+
+        session = get_session()
+        if headers:
+            session.headers.update(headers)
+        r = session.get(
+            actual,
+            timeout=timeout or Config.HTTP_TIMEOUT,
+            allow_redirects=False,
+            stream=True,
+        )
+
+        if r.status_code in (301, 302, 303, 307, 308):
+            destino = r.headers.get("Location")
+            r.close()
+            if not destino:
+                raise ValueError("Redireccion sin destino")
+            actual = urljoin(actual, destino)
+            continue
+
+        if r.status_code in (403, 429, 503):
+            r.close()
+            raise MotorBloqueadoError(r.status_code)
+        r.raise_for_status()
+
+        partes, total = [], 0
+        for trozo in r.iter_content(8192):
+            partes.append(trozo)
+            total += len(trozo)
+            if total >= max_bytes:
+                break
+        r.close()
+        r._content = b"".join(partes)
+        r._content_consumed = True
+        return r
+
+    raise ValueError("Demasiadas redirecciones")

@@ -59,6 +59,9 @@ def analizar_ip(ip: str, escanear_puertos: bool = True) -> dict:
         "geolocalizacion": _geolocalizar(ip),
         "reverse_dns": _reverse_dns(ip),
     }
-    if escanear_puertos:
+    if escanear_puertos and Config.ENABLE_PORTSCAN:
         resultado["puertos"] = _escaneo_puertos(ip)
+    elif escanear_puertos:
+        resultado["puertos"] = []
+        resultado["puertos_nota"] = "Esc\u00e1ner de puertos desactivado en este despliegue."
     return resultado

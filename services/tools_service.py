@@ -4,7 +4,7 @@ import secrets
 import string
 from urllib.parse import unquote, urlparse
 
-from services.http_utils import safe_get
+from services.http_utils import safe_get_public
 
 # ---------- Base64 ----------
 
@@ -112,7 +112,7 @@ def ver_robots(dominio: str) -> dict:
     dominio = dominio.replace("http://", "").replace("https://", "").split("/")[0]
     for esquema in ("https", "http"):
         try:
-            r = safe_get(f"{esquema}://{dominio}/robots.txt", timeout=6)
+            r = safe_get_public(f"{esquema}://{dominio}/robots.txt", timeout=6)
             if r.status_code == 200:
                 return {"ok": True, "url": r.url, "contenido": r.text[:8000]}
         except Exception:
@@ -127,7 +127,7 @@ def ver_headers(url: str) -> dict:
     if not url.startswith("http"):
         url = "https://" + url
     try:
-        r = safe_get(url, timeout=8)
+        r = safe_get_public(url, timeout=8)
         return {"ok": True, "url": r.url, "status": r.status_code, "headers": dict(r.headers)}
     except Exception as e:
         return {"ok": False, "error": str(e)}
