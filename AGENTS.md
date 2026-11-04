@@ -6,7 +6,7 @@ Reglas fijas. Leer antes de actuar. Protocolo global: D:\Proyectos\_mip\MIP.md
 - Diagnosticar antes de modificar; preservar cambios locales; backup si hay riesgo de perdida.
 - No inventar resultados, funciones ni URLs; etiquetar CONFIRMADO / PENDIENTE / INFERENCIA.
 - No eliminar archivos ni tocar la base de datos sin autorizacion.
-- Commit y push solo dentro de una tarea aprobada y salvo NO COMMIT; nunca force push.
+- Commit y push solo con autorizacion explicita en el mismo mensaje; mostrar antes el git diff; nunca force push.
 - Sin secretos en el repo ni en .md; usar .env.
 - Probar y verificar antes de cerrar; actualizar PROJECT_CONTEXT.md y CHANGELOG.md al terminar.
 - Comandos solo en PowerShell 7.
